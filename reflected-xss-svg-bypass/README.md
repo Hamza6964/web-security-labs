@@ -4,8 +4,8 @@ While working through PortSwigger's XSS labs, I came across a scenario where mos
 ### Initial Recon
 The vulnerability existed in the search functionality, a classic entry point for reflected XSS. I began with the usual suspects:
 
-<script>alert(1)</script> 
-<img src=x onerror=alert(1)>
+       <script>alert(1)</script> 
+```    <img src=x onerror=alert(1)>   ```
 
 But the app responded with: "tag not allowed."
 __check(image1)__
@@ -26,7 +26,7 @@ This was the key.
 ### The Final Payload
 Using only the allowed elements and attributes, I crafted a minimal payload that successfully triggered an alert:
 
-<svg><animateTransform onbegin=alert(1) attributeName=transform type=rotate from=0 to=1 dur=1s/></svg>
+```    <svg><animateTransform onbegin=alert(1) attributeName=transform type=rotate from=0 to=1 dur=1s/></svg>       ```
 
 __(check image4)__
 
