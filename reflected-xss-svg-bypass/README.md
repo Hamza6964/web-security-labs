@@ -1,4 +1,4 @@
-Bypassing XSS Filters: Exploiting PortSwigger’s “Reflected XSS with Some SVG Markup Allowed” Lab
+### Bypassing XSS Filters: Exploiting PortSwigger’s “Reflected XSS with Some SVG Markup Allowed” Lab
 While working through PortSwigger's XSS labs, I came across a scenario where most tags and attributes were heavily filtered — but with a bit of digging, I discovered a clean path to trigger JavaScript.
 
 ### Initial Recon
@@ -16,7 +16,7 @@ To identify which tags were still allowed, I used Burp Suite Intruder to brute-f
 After analyzing the responses, I found that only two tags consistently returned a 200 OK:
 <svg> And <animateTransform>
 This hinted that SVG-based injection was possible.
-__(check image 2)__
+__(check image 2, image3, image4)__
 
 ### Testing for Allowed Attributes
 I followed the same approach to test event handler attributes (onload, onerror, onclick, etc.). Most were blocked — except:
@@ -28,9 +28,9 @@ Using only the allowed elements and attributes, I crafted a minimal payload that
 
 ```    <svg><animateTransform onbegin=alert(1) attributeName=transform type=rotate from=0 to=1 dur=1s/></svg>       ```
 
-__(check image4)__
+__(check image5)__
 
-Why it works:
+### Why it works:
 
 onbegin is a valid SVG event that fires when the animation starts.
 
